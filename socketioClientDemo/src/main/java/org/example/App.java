@@ -21,8 +21,5 @@ public class App
     public static void main( String[] args )
     {
         URI uri = URI.create(wsUri);
-        javaxClientUtil endpoint = new javaxClientUtil(uri);
-        endpoint.addMessageHandler(new MessageHandlerImpl());
-        endpoint.sendMessage(kradioHomepageRefresh);
     }
 }
