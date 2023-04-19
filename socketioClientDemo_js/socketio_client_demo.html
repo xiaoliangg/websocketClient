@@ -34,27 +34,16 @@
 
     //点击按钮发送消息
     btn.onclick = function () {
-        // alert("123")
         // 参考: https://socket.io/docs/v4/emitting-events/
-        // socket.emit("hello from client", 5, "6", { 7: Uint8Array.from([8]) });
-        // socket.emit("locationUpdateMessage",5, "6", locationUpdateMsg);
-        // socket.emit("locationUpdateMessage", locationUpdateMsg);
         socket.emit("locationUpdateMessage", locationUpdateMsg,(err, responses) => {
             if (err) {
                 alert("err:"+ err)
-                // some clients did not acknowledge the event in the given delay
             } else {
                 console.log(responses); // one response per client
             }
         });
-
-        // socket.emit("locationUpdateMessage", "123");
     }
 
-    // server-side
-    // io.on("connection", (socket) => {
-    //     console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-    // });
     // client-side
     socket.on("connect", () => {
         alert("connect:" + socket.id)
@@ -68,15 +57,12 @@
 
     socket.on('locationUpdateMessageResponse', function (data) {
         alert("locationUpdateMessageResponse:" + JSON.stringify(data));
-        // socket.emit('my other event', { my: 'data' });
     });
     socket.on('apiEBMessage', function (data) {
         alert("apiEBMessage:" + JSON.stringify(data));
-        // socket.emit('my other event', { my: 'data' });
     });
     socket.on('appMessage', function (data) {
         alert("appMessage:" + JSON.stringify(data));
-        // socket.emit('my other event', { my: 'data' });
     });
 
 </script>
