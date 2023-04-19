@@ -11,7 +11,7 @@
     <div id="box">
         <div class="msg" id="msg"></div>
         <div class="bottom">
-            <button type="button" id="btn">开启服务器推送</button>
+            <button type="button" id="btn">上报位置测试</button>
         </div>
     </div>
 </body>
@@ -19,7 +19,7 @@
 <script src="https://cdn.socket.io/socket.io-1.7.4.js"></script>
 
 <script>
-    let btn = document.getElementById('btn');//推送开启
+    let btn = document.getElementById('btn');
 
     // 参考: https://socket.io/docs/v4/client-api/
     const options = {transports: ["websocket"]}
@@ -30,7 +30,6 @@
         "lng": 116.354957,
         "lat": 39.910639
     };
-    // send a message to the server
 
     //点击按钮发送消息
     btn.onclick = function () {
@@ -44,7 +43,6 @@
         });
     }
 
-    // client-side
     socket.on("connect", () => {
         alert("connect:" + socket.id)
         console.log(socket.id); // x8WIv7-mJelg7on_ALbx
