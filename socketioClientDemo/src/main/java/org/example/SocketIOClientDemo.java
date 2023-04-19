@@ -1,18 +1,12 @@
 package org.example;
 
-import com.google.gson.*;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.engineio.client.transports.WebSocket;
-import lombok.extern.slf4j.Slf4j;
-import org.example.domain.LocationUpdateMessageRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.net.URI;
-import java.util.*;
-
-import static org.apache.commons.collections4.IterableUtils.toList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class SocketIOClientDemo {
     // 09bd6d56b59fa6aba99021263ec3b7e9
