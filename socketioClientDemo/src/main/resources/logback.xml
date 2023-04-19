@@ -42,10 +42,10 @@
     </root>
 
     <!--调试使用-->
-<!--    <root level="DEBUG">
+    <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
-    </root>-->
+    </root>
 
 </configuration>
 
