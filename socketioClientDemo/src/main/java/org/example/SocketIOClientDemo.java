@@ -9,13 +9,11 @@ import java.util.Map;
 import java.util.UUID;
 
 public class SocketIOClientDemo {
-    // 09bd6d56b59fa6aba99021263ec3b7e9
-
-//    public static final String SCHEMA_TEST = "https://iovws-test.radio.cn";
-    public static final String SCHEMA_TEST = "http://iovws-test.radio.cn";
+    public static final String SCHEMA_TEST = "https://iovws-test.radio.cn";
+//    public static final String SCHEMA_TEST = "http://iovws-test.radio.cn";
 //    public static final String SCHEMA_TEST = "http://localhost:9095";
 
-    public static final String wsUri = SCHEMA_TEST + "/?capabilities=NEW_DOMAIN_SUPPORTTED%2CPAY_CONTENT_SUPPORTTED&os=android&lng=114.45123091&openid=kc34992023041210000003&packagename=com.edog.car&sign=da838eb65cd00d0f4561aa5110793943&deviceid=09bd6d56b59fa6aba99021263ec3b7e9&carType=X7&appid=kc3499&udid=09bd6d56b59fa6aba99021263ec3b7e9&lat=38.03762354";
+    public static final String WS_URI = SCHEMA_TEST + "/?capabilities=NEW_DOMAIN_SUPPORTTED%2CPAY_CONTENT_SUPPORTTED&os=android&lng=114.45123091&openid=kc34992023041210000003&packagename=com.edog.car&sign=da838eb65cd00d0f4561aa5110793943&deviceid=09bd6d56b59fa6aba99021263ec3b7e9&carType=X7&appid=kc3499&lat=38.03762354";
 
     public static void main(String[] args) {
         // charls代理
@@ -31,7 +29,7 @@ public class SocketIOClientDemo {
             // 连接超时时间(ms)
             options.timeout = 500;
 
-            final Socket socket = IO.socket(wsUri, options);
+            final Socket socket = IO.socket(WS_URI, options);
             socket.on(Socket.EVENT_CONNECT, args1 -> {
                 try {
                     System.out.println("连接建立成功");
