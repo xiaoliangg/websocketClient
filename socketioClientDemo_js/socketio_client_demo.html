@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+</head>
+
+<body>
+    <div id="box">
+        <div class="msg" id="msg"></div>
+        <div class="bottom">
+            <button type="button" id="btn">开启服务器推送</button>
+        </div>
+    </div>
+</body>
+
+<script src="https://cdn.socket.io/socket.io-1.7.4.js"></script>
+
+<script>
+    let btn = document.getElementById('btn');//推送开启
+
+    // 参考: https://socket.io/docs/v4/client-api/
+    const options = {transports: ["websocket"]}
+    const socket = io("ws://iovws-test.radio.cn/?capabilities=NEW_DOMAIN_SUPPORTTED%2CPAY_CONTENT_SUPPORTTED&os=android&lng=114.45123091&openid=kc34992023041210000003&packagename=com.edog.car&sign=da838eb65cd00d0f4561aa5110793943&deviceid=09bd6d56b59fa6aba99021263ec3b7e9&carType=X7&appid=kc3499&udid=09bd6d56b59fa6aba99021263ec3b7e9&lat=38.03762354", options);
+    const locationUpdateMsg = {
+        "deviceId": "09bd6d56b59fa6aba99021263ec3b7e9",
+        "requestId": "f1480d62-6243-496d-bb41-17708df87fa8",
+        "lng": 116.354957,
+        "lat": 39.910639
+    };
+    // send a message to the server
+
+    //点击按钮发送消息
+    btn.onclick = function () {
+        // alert("123")
+        // 参考: https://socket.io/docs/v4/emitting-events/
+        // socket.emit("hello from client", 5, "6", { 7: Uint8Array.from([8]) });
+        // socket.emit("locationUpdateMessage",5, "6", locationUpdateMsg);
+        // socket.emit("locationUpdateMessage", locationUpdateMsg);
+        socket.emit("locationUpdateMessage", locationUpdateMsg,(err, responses) => {
+            if (err) {
+                alert("err:"+ err)
+                // some clients did not acknowledge the event in the given delay
+            } else {
+                console.log(responses); // one response per client
+            }
+        });
+
+        // socket.emit("locationUpdateMessage", "123");
+    }
+
+    // server-side
+    // io.on("connection", (socket) => {
+    //     console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+    // });
+    // client-side
+    socket.on("connect", () => {
+        alert("connect:" + socket.id)
+        console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+    });
+
+    socket.on("disconnect", () => {
+        alert("disconnect:" + socket.id)
+        console.log(socket.id); // undefined
+    });
+
+    socket.on('locationUpdateMessageResponse', function (data) {
+        alert("locationUpdateMessageResponse:" + JSON.stringify(data));
+        // socket.emit('my other event', { my: 'data' });
+    });
+    socket.on('apiEBMessage', function (data) {
+        alert("apiEBMessage:" + JSON.stringify(data));
+        // socket.emit('my other event', { my: 'data' });
+    });
+    socket.on('appMessage', function (data) {
+        alert("appMessage:" + JSON.stringify(data));
+        // socket.emit('my other event', { my: 'data' });
+    });
+
+</script>
+</html>
