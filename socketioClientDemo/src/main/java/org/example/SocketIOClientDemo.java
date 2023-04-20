@@ -137,7 +137,7 @@ public class SocketIOClientDemo {
                     Map<String,Object> map = new HashMap<>();
                     map.put("deviceId",deviceId);
                     map.put("requestId",uuid);
-//                    map.put("lat",Double.parseDouble(lat));
+                    map.put("lat",Double.parseDouble(lat));
                     map.put("lng",Double.parseDouble(lng));
                     socket.emit("locationUpdateMessage",map);
                 }else{
