@@ -61,6 +61,17 @@
         console.log(socket.id); // undefined
     });
 
+    socket.on("connect_timeout", () => {
+        alert("connect_timeout:" + socket.id)
+    });
+    socket.on("connect_error", () => {
+        alert("connect_error:" + socket.id)
+    });
+    socket.on("error", () => {
+        alert("error:" + socket.id)
+    });
+
+    // 自定义事件
     socket.on('locationUpdateMessageResponse', function (data) {
         alert("locationUpdateMessageResponse:" + JSON.stringify(data));
     });
