@@ -2,6 +2,7 @@ package org.example;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
+import io.socket.engineio.client.EngineIOException;
 import io.socket.engineio.client.transports.WebSocket;
 
 import java.util.HashMap;
@@ -25,7 +26,7 @@ public class SocketIOClientDemo {
     public static final String appId = "in2193";
     public static final String packagename = "com.kaolafm.sdk.demo";
     public static final String openid = "in21932023041910000001";
-    public static final String sign = "cea844ed5989bc95dbf46e3dfbcdd13c";
+    public static final String sign = "cea844ed5989bc95dbf46e3dfbcdd13czz";
     public static final String lat = "38.03762354";
     public static final String lng = "114.45123091";
 
@@ -41,11 +42,11 @@ public class SocketIOClientDemo {
         try {
             IO.Options options = new IO.Options();
             options.transports = new String[]{ WebSocket.NAME};
-            options.reconnectionAttempts = 2;
-            // 失败重连的时间间隔
-            options.reconnectionDelay = 1000;
-            // 连接超时时间(ms)
-            options.timeout = 500;
+//            options.reconnectionAttempts = 2;
+//            // 失败重连的时间间隔
+//            options.reconnectionDelay = 1000;
+//            // 连接超时时间(ms)
+//            options.timeout = 500;
 
             System.out.println("WS_URI:" + WS_URI);
             final Socket socket = IO.socket(WS_URI, options);
@@ -79,7 +80,15 @@ public class SocketIOClientDemo {
             });
             socket.on(Socket.EVENT_CONNECT_ERROR, args1 -> {
                 try {
-                    System.out.println("connect_error");
+                    System.out.println("connect_error:" + args1[0].toString());
+                    if(args1[0] instanceof EngineIOException){
+                        EngineIOException engineIOException = (EngineIOException)args1[0];
+                        System.out.println("connect_error:" + engineIOException.getCause()
+                                + "|" + engineIOException.getMessage()
+
+                                + "|" + engineIOException.getLocalizedMessage()
+                        );
+                    }
                 }catch (Exception e){
                     e.printStackTrace();
                 }
