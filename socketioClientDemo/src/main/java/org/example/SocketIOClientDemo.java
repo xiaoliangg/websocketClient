@@ -13,7 +13,25 @@ public class SocketIOClientDemo {
 //    public static final String SCHEMA_TEST = "http://iovws-test.radio.cn";
 //    public static final String SCHEMA_TEST = "http://localhost:9095";
 
-    public static final String WS_URI = SCHEMA_TEST + "/?capabilities=NEW_DOMAIN_SUPPORTTED%2CPAY_CONTENT_SUPPORTTED&os=android&lng=114.45123091&openid=kc34992023041210000003&packagename=com.edog.car&sign=da838eb65cd00d0f4561aa5110793943&deviceid=09bd6d56b59fa6aba99021263ec3b7e9&carType=X7&appid=kc3499&lat=38.03762354";
+//    public static final String deviceId = "09bd6d56b59fa6aba99021263ec3b7e9";
+//    public static final String appId = "kc3499";
+//    public static final String packagename = "com.edog.car";
+//    public static final String openid = "kc34992023041210000003";
+//    public static final String sign = "da838eb65cd00d0f4561aa5110793943";
+//    public static final String lat = "38.03762354";
+//    public static final String lng = "114.45123091";
+
+    public static final String deviceId = "a89b0935f1aaa35984dd6924d0c416f3";
+    public static final String appId = "in2193";
+    public static final String packagename = "com.kaolafm.sdk.demo";
+    public static final String openid = "in21932023041910000001";
+    public static final String sign = "cea844ed5989bc95dbf46e3dfbcdd13c";
+    public static final String lat = "38.03762354";
+    public static final String lng = "114.45123091";
+
+    public static final String WS_URI = SCHEMA_TEST + "/?capabilities=NEW_DOMAIN_SUPPORTTED%2CPAY_CONTENT_SUPPORTTED&os=android&lng=" + lng
+            +"&openid=" + openid + "&packagename=" + packagename + "&sign="+ sign +"&deviceid=" + deviceId
+            +"&carType=X7&appid="+ appId + "&lat=" + lat;
 
     public static void main(String[] args) {
         // charls代理
@@ -29,10 +47,39 @@ public class SocketIOClientDemo {
             // 连接超时时间(ms)
             options.timeout = 500;
 
+            System.out.println("WS_URI:" + WS_URI);
             final Socket socket = IO.socket(WS_URI, options);
             socket.on(Socket.EVENT_CONNECT, args1 -> {
                 try {
                     System.out.println("连接建立成功");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            });
+            socket.on(Socket.EVENT_DISCONNECT, args1 -> {
+                try {
+                    System.out.println("连接断开");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            });
+            socket.on(Socket.EVENT_ERROR, args1 -> {
+                try {
+                    System.out.println("连接异常");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            });
+            socket.on(Socket.EVENT_CONNECT_TIMEOUT, args1 -> {
+                try {
+                    System.out.println("connect_timeout");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            });
+            socket.on(Socket.EVENT_CONNECT_ERROR, args1 -> {
+                try {
+                    System.out.println("connect_error");
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -62,16 +109,34 @@ public class SocketIOClientDemo {
 
             socket.connect();
 
+            // 10s后断开连接
+            new Thread(() -> {
+                try {
+                    Thread.sleep(10*1000);
+                    socket.disconnect();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+
             while (true) {
                 Thread.sleep(3000);
-                // 自定义事件`push_data_event` -> 向服务端发送消息
-                Map<String,Object> map = new HashMap<>();
-                map.put("deviceId","09bd6d56b59fa6aba99021263ec3b7e9");
-                map.put("requestId",UUID.randomUUID().toString());
-                map.put("lat",36.1231);
-                map.put("lng",108.1234);
-                socket.emit("locationUpdateMessage",map);
+                if(socket.connected()){
+                    // 自定义事件`push_data_event` -> 向服务端发送消息
+                    String uuid = UUID.randomUUID().toString();
+                    System.out.println("uuid:" + uuid);
+                    Map<String,Object> map = new HashMap<>();
+                    map.put("deviceId",deviceId);
+                    map.put("requestId",uuid);
+                    map.put("lat",Double.parseDouble(lat));
+                    map.put("lng",Double.parseDouble(lng));
+                    socket.emit("locationUpdateMessage",map);
+                }else{
+                    System.out.println("未连接状态");
+                }
+
             }
+
         } catch (Exception e) {
             System.out.println("err:" + e);
             e.printStackTrace();
