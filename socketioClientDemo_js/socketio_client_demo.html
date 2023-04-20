@@ -41,9 +41,9 @@
     //点击按钮发送消息
     btn.onclick = function () {
         // 参考: https://socket.io/docs/v4/emitting-events/
-        socket.emit("locationUpdateMessage", locationUpdateMsg,(err, responses) => {
+        socket.emit("locationUpdateMessage", locationUpdateMsg, (err, responses) => {
             if (err) {
-                alert("err:"+ err)
+                alert("err:" + err)
             } else {
                 console.log(responses); // one response per client
             }
