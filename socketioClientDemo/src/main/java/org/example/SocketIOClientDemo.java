@@ -26,7 +26,7 @@ public class SocketIOClientDemo {
     public static final String appId = "in2193";
     public static final String packagename = "com.kaolafm.sdk.demo";
     public static final String openid = "in21932023041910000001";
-    public static final String sign = "cea844ed5989bc95dbf46e3dfbcdd13czz";
+    public static final String sign = "cea844ed5989bc95dbf46e3dfbcdd13c";
     public static final String lat = "38.03762354";
     public static final String lng = "114.45123091";
 
@@ -137,7 +137,7 @@ public class SocketIOClientDemo {
                     Map<String,Object> map = new HashMap<>();
                     map.put("deviceId",deviceId);
                     map.put("requestId",uuid);
-                    map.put("lat",Double.parseDouble(lat));
+//                    map.put("lat",Double.parseDouble(lat));
                     map.put("lng",Double.parseDouble(lng));
                     socket.emit("locationUpdateMessage",map);
                 }else{
