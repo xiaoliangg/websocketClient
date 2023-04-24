@@ -17,26 +17,25 @@ public class SocketIOClientDemo {
 //    public static final String SCHEMA_TEST = "http://iovws-test.radio.cn";
 //    public static final String SCHEMA_TEST = "http://localhost:9095";
 
-//    public static final String deviceId = "09bd6d56b59fa6aba99021263ec3b7e9";
-//    public static final String appId = "kc3499";
-//    public static final String packagename = "com.edog.car";
-//    public static final String openid = "kc34992023041210000003";
-//    public static final String sign = "da838eb65cd00d0f4561aa5110793943";
-//    public static final String lat = "38.03762354";
-//    public static final String lng = "114.45123091";
-
-    public static String deviceId = "a89b0935f1aaa35984dd6924d0c416f3";
-    public static final String appId = "in2193";
-    public static final String packagename = "com.kaolafm.sdk.demo";
-    public static final String openid = "in21932023041910000001";
-    public static final String sign = "cea844ed5989bc95dbf46e3dfbcdd13c";
+    public static final String deviceId = "09bd6d56b59fa6aba99021263ec3b7e9";
+    public static final String appId = "kc3499";
+    public static final String packagename = "com.edog.car";
+    public static final String openid = "kc34992023041210000003";
+    public static final String sign = "da838eb65cd00d0f4561aa5110793943";
     public static final String lat = "38.03762354";
     public static final String lng = "114.45123091";
 
-//    public static final String WS_URI = "http://iovws-dev.radio.cn/open?capabilities=NEW_DOMAIN_SUPPORTTED%2CPAY_CONTENT_SUPPORTTEDos=android&lng=" + lng
-//            +"&openid=" + openid + "&packagename=" + packagename + "&sign="+ sign +"&deviceid=" + deviceId
-//            +"&carType=X7&appid="+ appId + "&lat=" + lat;
-//    public static final String WS_URI = "http://iovws-dev.radio.cn/open";
+//    public static String deviceId = "a89b0935f1aaa35984dd6924d0c416f3";
+//    public static final String appId = "in2193";
+//    public static final String packagename = "com.kaolafm.sdk.demo";
+//    public static final String openid = "in21932023041910000001";
+//    public static final String sign = "cea844ed5989bc95dbf46e3dfbcdd13c";
+//    public static final String lat = "38.03762354";
+//    public static final String lng = "114.45123091";
+
+    public static final String WS_URI = "http://iovws-test.radio.cn?capabilities=NEW_DOMAIN_SUPPORTTED%2CPAY_CONTENT_SUPPORTTED&os=android&lng=" + lng
+            +"&openid=" + openid + "&packagename=" + packagename + "&sign="+ sign +"&deviceid=" + deviceId
+            +"&carType=X7&appid="+ appId + "&lat=" + lat;
 
 
     public static void main(String[] args) {
@@ -49,22 +48,22 @@ public class SocketIOClientDemo {
             options.transports = new String[]{ WebSocket.NAME};
 //            options.query = "capabilities=NEW_DOMAIN_SUPPORTTED%2CPAY_CONTENT_SUPPORTTED&os=android&lng=116.354957&openid=kc34992023041210000003&packagename=com.edog.car&sign=da838eb65cd00d0f4561aa5110793943&deviceid=09bd6d56b59fa6aba99021263ec3b7e9&carType=X7&appid=kc3499&lat=39.910639";
 
-            String uriStr = "http://iovws-dev.radio.cn?capabilities=NEW_DOMAIN_SUPPORTTED%2CPAY_CONTENT_SUPPORTTED&os=android&lng=116.354957&openid=kc34992023041210000003&packagename=com.edog.car&sign=da838eb65cd00d0f4561aa5110793943&deviceid=09bd6d56b59fa6aba99021263ec3b7e9&carType=X7&appid=kc3499&lat=39.910639";
-            deviceId = "09bd6d56b59fa6aba99021263ec3b7e9";
-            URI uri = URI.create(uriStr);
-            Manager manager = new Manager(uri,options);
-            final Socket socket = manager.socket("/open");
-//            final Socket socket = IO.socket(uri,options);
-//            final Socket socket = socket2.io().socket("/open");
-//            final Socket socket = manager.socket("");
+//            String uriStr = "http://iovws-dev.radio.cn?capabilities=NEW_DOMAIN_SUPPORTTED%2CPAY_CONTENT_SUPPORTTED&os=android&lng=116.354957&openid=kc34992023041210000003&packagename=com.edog.car&sign=da838eb65cd00d0f4561aa5110793943&deviceid=09bd6d56b59fa6aba99021263ec3b7e9&carType=X7&appid=kc3499&lat=39.910639";
+//            deviceId = "09bd6d56b59fa6aba99021263ec3b7e9";
+//            URI uri = URI.create(uriStr);
+//            Manager manager = new Manager(uri,options);
+//            final Socket socket = manager.socket("/open");
+
 //            options.reconnectionAttempts = 2;
 //            // 失败重连的时间间隔
 //            options.reconnectionDelay = 1000;
 //            // 连接超时时间(ms)
 //            options.timeout = 500;
 
-//            System.out.println("WS_URI:" + WS_URI);
+            System.out.println("WS_URI:" + WS_URI);
 //            final Socket socket = IO.socket(WS_URI, options);
+            Manager manager = new Manager(URI.create(WS_URI),options);
+            final Socket socket = manager.socket("/open");
 
             socket.on(Socket.EVENT_CONNECT, args1 -> {
                 try {
@@ -81,20 +80,20 @@ public class SocketIOClientDemo {
                 }
             });
 
-//            socket.on(Socket.EVENT_ERROR, args1 -> {
-//                try {
-//                    System.out.println("连接异常");
-//                }catch (Exception e){
-//                    e.printStackTrace();
-//                }
-//            });
-//            socket.on(Socket.EVENT_CONNECT_TIMEOUT, args1 -> {
-//                try {
-//                    System.out.println("connect_timeout");
-//                }catch (Exception e){
-//                    e.printStackTrace();
-//                }
-//            });
+            socket.on(Socket.EVENT_ERROR, args1 -> {
+                try {
+                    System.out.println("连接异常");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            });
+            socket.on(Socket.EVENT_CONNECT_TIMEOUT, args1 -> {
+                try {
+                    System.out.println("connect_timeout");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            });
             socket.on(Socket.EVENT_CONNECT_ERROR, args1 -> {
                 try {
                     System.out.println("connect_error:" + args1[0].toString());
