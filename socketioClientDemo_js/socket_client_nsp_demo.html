@@ -39,7 +39,7 @@
         //点击按钮发送消息
         btn.onclick = function () {
             // 参考: https://socket.io/docs/v4/emitting-events/
-            socket.emit("TO_LOCATION", locationUpdateMsg, (err, responses) => {
+            socket.emit("LOC_RPT", locationUpdateMsg, (err, responses) => {
                 if (err) {
                     alert("err:" + err)
                 } else {
@@ -87,19 +87,19 @@
         socket.on('appMessage', function (data) {
             alert("appMessage:" + JSON.stringify(data));
         });
-        socket.on('FROM_EB', function (data) {
-            alert("FROM_EB:" + JSON.stringify(data));
+        socket.on('EB_PUSH', function (data) {
+            alert("EB_PUSH:" + JSON.stringify(data));
         });
-        socket.on('FROM_LOCATION_RESPONSE', function (data) {
-            alert("FROM_LOCATION_RESPONSE:" + JSON.stringify(data));
+        socket.on('LOC_RESP', function (data) {
+            alert("LOC_RESP:" + JSON.stringify(data));
         });
 
         // 100s后主动断开连接
-        const fn2 = () => {
-            console.log("disconnect")
-            socket.disconnect();
-        };
-        timeoutId = setTimeout(fn2,100*1000);
+        // const fn2 = () => {
+        //     console.log("disconnect")
+        //     socket.disconnect();
+        // };
+        // timeoutId = setTimeout(fn2,100*1000);
 	</script>
 
 
