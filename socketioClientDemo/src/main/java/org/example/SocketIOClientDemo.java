@@ -40,20 +40,12 @@ public class SocketIOClientDemo {
 
     public static void main(String[] args) {
         // charls代理
-        System.setProperty("http.proxyHost", "127.0.0.1");
-        System.setProperty("http.proxyPort", "8888");
+//        System.setProperty("http.proxyHost", "127.0.0.1");
+//        System.setProperty("http.proxyPort", "8888");
 
         try {
             IO.Options options = new IO.Options();
             options.transports = new String[]{ WebSocket.NAME};
-//            options.query = "capabilities=NEW_DOMAIN_SUPPORTTED%2CPAY_CONTENT_SUPPORTTED&os=android&lng=116.354957&openid=kc34992023041210000003&packagename=com.edog.car&sign=da838eb65cd00d0f4561aa5110793943&deviceid=09bd6d56b59fa6aba99021263ec3b7e9&carType=X7&appid=kc3499&lat=39.910639";
-
-//            String uriStr = "http://iovws-dev.radio.cn?capabilities=NEW_DOMAIN_SUPPORTTED%2CPAY_CONTENT_SUPPORTTED&os=android&lng=116.354957&openid=kc34992023041210000003&packagename=com.edog.car&sign=da838eb65cd00d0f4561aa5110793943&deviceid=09bd6d56b59fa6aba99021263ec3b7e9&carType=X7&appid=kc3499&lat=39.910639";
-//            deviceId = "09bd6d56b59fa6aba99021263ec3b7e9";
-//            URI uri = URI.create(uriStr);
-//            Manager manager = new Manager(uri,options);
-//            final Socket socket = manager.socket("/open");
-
 //            options.reconnectionAttempts = 2;
 //            // 失败重连的时间间隔
 //            options.reconnectionDelay = 1000;
@@ -61,7 +53,6 @@ public class SocketIOClientDemo {
 //            options.timeout = 500;
 
             System.out.println("WS_URI:" + WS_URI);
-//            final Socket socket = IO.socket(WS_URI, options);
             Manager manager = new Manager(URI.create(WS_URI),options);
             final Socket socket = manager.socket("/open");
 
@@ -101,7 +92,6 @@ public class SocketIOClientDemo {
                         EngineIOException engineIOException = (EngineIOException)args1[0];
                         System.out.println("connect_error:" + engineIOException.getCause()
                                 + "|" + engineIOException.getMessage()
-
                                 + "|" + engineIOException.getLocalizedMessage()
                         );
                     }
