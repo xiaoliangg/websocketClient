@@ -33,7 +33,7 @@ public class SocketIOClientDemo {
 //    public static final String lat = "38.03762354";
 //    public static final String lng = "114.45123091";
 
-    public static final String WS_URI = "http://iovws-test.radio.cn?capabilities=NEW_DOMAIN_SUPPORTTED%2CPAY_CONTENT_SUPPORTTED&os=android&lng=" + lng
+    public static final String WS_URI = "https://iovws-test.radio.cn?capabilities=NEW_DOMAIN_SUPPORTTED%2CPAY_CONTENT_SUPPORTTED&os=android&lng=" + lng
             +"&openid=" + openid + "&packagename=" + packagename + "&sign="+ sign +"&deviceid=" + deviceId
             +"&carType=X7&appid="+ appId + "&lat=" + lat;
 
@@ -135,7 +135,7 @@ public class SocketIOClientDemo {
                     String uuid = UUID.randomUUID().toString();
                     System.out.println("uuid:" + uuid);
                     Map<String,Object> map = new HashMap<>();
-                    map.put("deviceId",deviceId);
+//                    map.put("deviceId",deviceId);
                     map.put("requestId",uuid);
                     map.put("lat",Double.parseDouble(lat));
                     map.put("lng",Double.parseDouble(lng));

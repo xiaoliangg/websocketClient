@@ -71,7 +71,13 @@
         alert("connect_timeout:" + socket.id)
     });
     socket.on("connect_error", (err) => {
-        alert("connect_error:" + err.message)
+        alert("connect_error:" + err.message + "|" + err.data)
+    });
+    socket.on("reconnect_error", (err) => {
+        alert("reconnect_error:" + err.message + "|")
+    });
+    socket.on("reconnect_failed", (err) => {
+        alert("reconnect_failed:" + err.message)
     });
     socket.on("error", () => {
         alert("error:" + socket.id)
